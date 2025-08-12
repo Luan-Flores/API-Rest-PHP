@@ -7,9 +7,13 @@ $teste = json_encode(["chave" => $valor ?: "Sem Valor"]);
 
 echo $teste; // resultado: "Sem Valor"
 
+// método UPDATE
 if ($method == "POST" && $\_POST['_method'] == "PUT"){
 include_once "put.php";
 }
 
 segurança / login
 import JWT (JSON Web Token) - Autenticação
+
+trocando o Insomnia pela extensão REST Client - testar, simular e depurar requisições HTTP
+arquivo (.http)

@@ -41,11 +41,6 @@ $GLOBALS['secretJWT'] = '123456';
 // echo password_hash('123456', PASSWORD_DEFAULT);
 // var_dump($method); //Apenas para debug
 
-# Classes
-include_once "classes/db.class.php"; //antes
-include_once "classes/jwt.class.php"; 
-include_once "classes/usuarios.class.php"; 
+include_once "classes/autoload.class.php";
+new Autoload();
 
-# API's
-include_once "api/usuarios/usuarios.php";
-include_once "api/clientes/clientes.php";
