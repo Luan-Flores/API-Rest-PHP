@@ -20,16 +20,16 @@ class Clientes {
             exit;
         
     }
-    public function listarUnico(){
+    public function listarUnico($param){
         // Buscar cliente por ID
-        
-            $rs = $this->db->prepare("SELECT * FROM clientes WHERE id = :id");
-            $rs->bindParam(':id', $param, PDO::PARAM_INT);
+            
+            var_dump("Parametro: " . $param);
+            $rs = $this->db->prepare("SELECT * FROM clientes WHERE id = {$param}");
+            var_dump($rs);
             $rs->execute();
-            $cliente = $rs->fetchObject();
-
+            $obj = $rs->fetchObject();
             echo json_encode([
-                "dados" => $cliente ?: 'Não existem dados'
+                "dados" => $obj ?: 'Não existem dados'
             ]);
             exit;
         
