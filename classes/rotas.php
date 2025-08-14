@@ -28,8 +28,8 @@ class Rotas {
             $param = substr($route, strrpos($route, "/") + 1);
             $route = substr($route, 0, strrpos($route, "/"))."/[PARAM]";
         }
-        var_dump($route);
-      
+
+
        
 
 

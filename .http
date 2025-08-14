@@ -9,7 +9,7 @@ login=neto
 ###
 
 GET  http://localhost/api/clientes/listar HTTP/1.1
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTE1MTQzOX0.zZrQLX_YBAuACUHqm3KZOy18i-bMnhj2MhGMaOB931s
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTIzMDg0Nn0.XghWoKhKzSOWHUBhJyMJFse-bLHKB1sFR_oNnFkHmPI
 ###
 GET http://localhost/api/clientes/listar/13 HTTP/1.1
 ###

@@ -49,7 +49,7 @@ new Autoload();
 # Rotas
 $rota = new Rotas();
 $rota->add('POST', '/usuarios/login', 'Usuarios::login', false);
-$rota->add('GET', '/clientes/listar', 'Clientes::listarTodos', true);
+$rota->add('GET', '/clientes/listar', 'Clientes::listarTodos', false);
 $rota->add('GET', '/clientes/listar/[PARAM]', 'Clientes::listarUnico', true);
 $rota->add('PUT', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', true);
 
