@@ -9,13 +9,15 @@ login=neto
 ###
 
 GET  http://localhost/api/clientes/listar HTTP/1.1
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTIzMDg0Nn0.XghWoKhKzSOWHUBhJyMJFse-bLHKB1sFR_oNnFkHmPI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTQyNDEwOH0.UJaZCUS7NyZYVMaQ7osXCL1-cMySQrgja52YYJhIGck
 ###
 GET http://localhost/api/clientes/listar/13 HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTQyNDEwOH0.UJaZCUS7NyZYVMaQ7osXCL1-cMySQrgja52YYJhIGck
 ###
 
 
-POST http://localhost/api/clientes/atualizar/123 HTTP/1.1
+POST http://localhost/api/clientes/atualizar/13 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTQyNDEwOH0.UJaZCUS7NyZYVMaQ7osXCL1-cMySQrgja52YYJhIGck
 
-_method=PUT
+_method=PUT&nome=Novo%20Nome%20do%20Cliente&email=new.email@exemplo.com
