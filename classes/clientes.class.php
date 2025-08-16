@@ -23,9 +23,8 @@ class Clientes {
     public function listarUnico($param){
         // Buscar cliente por ID
             
-            var_dump("Parametro: " . $param);
             $rs = $this->db->prepare("SELECT * FROM clientes WHERE id = {$param}");
-            var_dump($rs);
+
             $rs->execute();
             $obj = $rs->fetchObject();
             echo json_encode([
@@ -37,6 +36,7 @@ class Clientes {
     public function adicionar(){
         $sql = "INSERT INTO clientes (";
 
+        //metodo 1
         $contador = 1;
         foreach (array_keys($_POST) as $indice) {
             if (count($_POST) > $contador){
@@ -47,6 +47,7 @@ class Clientes {
             }
             $contador++;
         }
+
         $sql .= ") VALUES (";
         $contador = 1;
         foreach (array_values($_POST) as $valor){
@@ -75,9 +76,8 @@ class Clientes {
         echo json_encode(["dados"=> ($exec ? "Dados inseridos com sucesso" : "Erro ao inserir os dados")]);
     
     }
-    public function atualizar(){
+    public function atualizar($param){
         array_shift($_POST);
-        
         $sql = "UPDATE clientes SET ";
         $contador = 1;
         foreach (array_keys($_POST) as $column){
@@ -92,14 +92,14 @@ class Clientes {
             $contador++;
         }
         $sql .= "WHERE id = {$param};";
-        var_dump($sql);
+        
         $rs = $this->db->prepare($sql);
         $exec = $rs->execute();
     
         echo json_encode(["dados" => $exec ? "Dados atualizados com sucesso" : "Erro ao inserir os dados"]);
         
     }
-    public function deletar(){
+    public function deletar($param){
         $rs = $this->db->prepare("DELETE from clientes WHERE id = {$param};");
         $exec = $rs->execute();
         echo json_encode(["Dados" => $exec ? "Dados excluídos com sucesso" : "Não foi possível excluir os dados"]);
