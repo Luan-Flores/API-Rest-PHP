@@ -61,7 +61,7 @@ class Clientes {
 
 
         $sql .= ");";
-        var_dump($sql);
+        
         $rs = $this->db->prepare($sql);
         $exec = $rs->execute();
 
