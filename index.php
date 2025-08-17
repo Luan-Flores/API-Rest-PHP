@@ -52,6 +52,7 @@ $rota->add('POST', '/usuarios/login', 'Usuarios::login', false);
 $rota->add('GET', '/clientes/listar', 'Clientes::listarTodos', false);
 $rota->add('GET', '/clientes/listar/[PARAM]', 'Clientes::listarUnico', true);
 $rota->add('PUT', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', true);
-
+$rota->add('POST', '/clientes/deletar/[PARAM]', 'Clientes::deletar', true);
+$rota->add('POST', '/clientes/adicionar', 'Clientes::adicionar', true);
 $rota->ir($_GET['path']);
 

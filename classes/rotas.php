@@ -17,21 +17,18 @@ class Rotas {
         $callback = '';
         $protection = '';
         $methodServer = $_SERVER['REQUEST_METHOD'];
-
+        
         // $methodServer = isset($_POST['_method']) ? $_POST['_method'] : $methodServer;
         // null coalescing operator 
         $methodServer = $_POST['_method'] ?? $methodServer;
         $route = $methodServer.':/'.$route;
+       
 
         
         if (substr_count($route, '/') >= 3){
             $param = substr($route, strrpos($route, "/") + 1);
             $route = substr($route, 0, strrpos($route, "/"))."/[PARAM]";
         }
-
-
-       
-
 
         $index = array_search($route, $this->listaRotas);
         if ($index > 0) {
