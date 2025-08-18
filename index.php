@@ -54,5 +54,6 @@ $rota->add('GET', '/clientes/listar/[PARAM]', 'Clientes::listarUnico', true);
 $rota->add('PUT', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', true);
 $rota->add('POST', '/clientes/deletar/[PARAM]', 'Clientes::deletar', true);
 $rota->add('POST', '/clientes/adicionar', 'Clientes::adicionar', true);
+var_dump("TESTE");
 $rota->ir($_GET['path']);
 
