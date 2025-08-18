@@ -29,3 +29,17 @@ UJaZCUS7NyZYVMaQ7osXCL1-cMySQrgja52YYJhIGck
 teste urlencoding oi
 teste%20urlencoding%20oi
 Note: The JavaScript function encodes space as %20.
+
+para fazer o deploy
+usando RENDER + DOCKER
+conecta o arquivo da minha API
+com dois arquivos adicionais na raiz: Dockerfile e .dockerignore
+como o RENDER não suporta diretamente o MYSQL(database inicial do projeto)
+migrar para o POSTGRESQL
+
+psql "postgresql://banco1_ezys_user:Vckemrx37TjQjFfIv4obZFGJ56aRZwKW@dpg-d2hhdrjipnbc73dqvf50-a.oregon-postgres.render.com/banco1_ezys?sslmode=require"
+
+no terminal ^^^^^^ gitbash para entrar no banco
+banco1_ezys=>
+banco1_ezys=> \dt mostra as tabelas
+\dt, \q, CREATE TABLE ...
