@@ -33,49 +33,48 @@ class Clientes {
             exit;
         
     }
-    public function adicionar(){
-        $sql = "INSERT INTO clientes (";
+    public function adicionar()
+    {
+        // Lê JSON do body (se houver)
+        $inputJson = file_get_contents('php://input');
+        $input = json_decode($inputJson, true);
 
-        //metodo 1
-        $contador = 1;
-        foreach (array_keys($_POST) as $indice) {
-            if (count($_POST) > $contador){
-                $sql .= "{$indice},";
-            }else {
-                
-                $sql .= "{$indice}";
-            }
-            $contador++;
+        // Usa JSON decodificado ou $_POST (caso cliente envie form-urlencoded)
+        $dados = (is_array($input) && count($input)) ? $input : $_POST;
+
+        if (!is_array($dados) || count($dados) === 0) {
+            http_response_code(400);
+            echo json_encode(['erro' => 'Nenhum dado recebido']);
+            exit();
         }
 
-        $sql .= ") VALUES (";
-        $contador = 1;
-        foreach (array_values($_POST) as $valor){
-            if (count($_POST) > $contador){
-                $sql .= "'{$valor}',";
-            }else{
-                $sql .= "'{$valor}'";
+        // Monta colunas e placeholders
+        $colunas = array_keys($dados);
+        $placeholders = array_map(fn($c) => ':' . $c, $colunas);
+
+        $sql = "INSERT INTO clientes (" . implode(',', $colunas) . ") VALUES (" . implode(',', $placeholders) . ")";
+
+        try {
+            $stmt = $this->db->prepare($sql);
+            foreach ($dados as $k => $v) {
+                $stmt->bindValue(':' . $k, $v);
             }
-            $contador++;
+            $exec = $stmt->execute();
+
+            if ($exec) {
+                http_response_code(201);
+                echo json_encode(['dados' => 'Dados inseridos com sucesso']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['erro' => 'Erro ao inserir os dados']);
+            }
+        } catch (PDOException $e) {
+            http_response_code(500);
+            // Em DEV você pode retornar a mensagem, em produção omita $e->getMessage()
+            echo json_encode(['erro' => 'Erro no servidor', 'detalhe' => $e->getMessage()]);
         }
-
-
-        $sql .= ");";
-        
-        $rs = $this->db->prepare($sql);
-        $exec = $rs->execute();
-
-        // if ($exec){
-        //     echo json_encode(["dados" => "Dados inseridos com sucesso."]);
-        // }else {
-        //     echo json_encode(["dados" => "Não existem dados para retornar"]);
-        // }
-
-        // troquei esse if/else pelo operador ternario
-
-        echo json_encode(["dados"=> ($exec ? "Dados inseridos com sucesso" : "Erro ao inserir os dados")]);
-    
     }
+
     public function truncar(){
         $sql = "TRUNCATE TABLE clientes;";
         $rs = $this->db->prepare($sql);
