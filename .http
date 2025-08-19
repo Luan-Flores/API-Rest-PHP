@@ -1,6 +1,6 @@
 ### Login
 
-POST http://localhost/api/usuarios/login HTTP/1.1
+POST https://api-rest-php-j9ir.onrender.com/usuarios/login HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
 login=neto
@@ -8,29 +8,34 @@ login=neto
 
 ###
 
-GET  http://localhost/api/clientes/listar HTTP/1.1
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTQ5ODIxMn0.09dLOhpsJ1ytVR-7iny9d3R0Q3smjc5Md_amP_jSgeEck
+GET https://api-rest-php-j9ir.onrender.com/clientes/listar HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTY2MTI5NX0.6R3GF0waAUSMkGkJ_Fo8d3eFXNJhU83dUz3XDeGjN0c
+
+
 ###
-GET http://localhost/api/clientes/listar/13 HTTP/1.1
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTQ5ODI0OH0.6HyNPiDfhPxsXi5R-JwkyW8-dT6PQ6gJIhn_ELkOtT8
+GET  https://api-rest-php-j9ir.onrender.com/clientes/listar HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTY2MTI5NX0.6R3GF0waAUSMkGkJ_Fo8d3eFXNJhU83dUz3XDeGjN0c
+###
+GET https://api-rest-php-j9ir.onrender.com/clientes/listar/13 HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTY2MTI5NX0.6R3GF0waAUSMkGkJ_Fo8d3eFXNJhU83dUz3XDeGjN0c
 ###
 
 
-POST http://localhost/api/clientes/atualizar/13 HTTP/1.1
+POST https://api-rest-php-j9ir.onrender.com/clientes/atualizar/13 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTQ5ODI0OH0.6HyNPiDfhPxsXi5R-JwkyW8-dT6PQ6gJIhn_ELkOtT8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTY2MTI5NX0.6R3GF0waAUSMkGkJ_Fo8d3eFXNJhU83dUz3XDeGjN0c
 
 _method=PUT&nome=Novo%20Nome%20do%20Cliente&email=new.email@exemplo.com
 
 ###
-POST http://localhost/api/clientes/deletar/13 HTTP/1.1
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTQ5ODI0OH0.6HyNPiDfhPxsXi5R-JwkyW8-dT6PQ6gJIhn_ELkOtT8
+POST https://api-rest-php-j9ir.onrender.com/clientes/deletar/13 HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTY2MTI5NX0.6R3GF0waAUSMkGkJ_Fo8d3eFXNJhU83dUz3XDeGjN0c
 
 _method=DELETE
 
 ###
-POST http://localhost/api/clientes/adicionar HTTP/1.1
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTQ5ODI0OH0.6HyNPiDfhPxsXi5R-JwkyW8-dT6PQ6gJIhn_ELkOtT8
+POST https://api-rest-php-j9ir.onrender.com/clientes/adicionar HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTY2MTI5NX0.6R3GF0waAUSMkGkJ_Fo8d3eFXNJhU83dUz3XDeGjN0c
 Content-Type: application/x-www-form-urlencoded
 
 nome=teste&email=oi@ola.com&cidade=goiania&estado=goias&telefone=12345678
