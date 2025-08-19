@@ -5,6 +5,16 @@ header('Content-type: application/json'); //Api retorna dados em JSON
 
 date_default_timezone_set("America/Sao_Paulo"); //Definindo o horário
 
+// Permitir métodos necessários
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+
+// Permitir headers enviados pelo frontend
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+// Se a requisição for OPTIONS, apenas responde 200 e encerra
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 // var_dump($_GET['path']); //Tudo que vem da URL com parametro 'path'
 
 
