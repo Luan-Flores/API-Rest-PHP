@@ -76,6 +76,12 @@ class Clientes {
         echo json_encode(["dados"=> ($exec ? "Dados inseridos com sucesso" : "Erro ao inserir os dados")]);
     
     }
+    public function truncar(){
+        $sql = "TRUNCATE TABLE clientes;";
+        $rs = $this->db->prepare($sql);
+        $exec = $rs->execute();
+        echo json_encode(["dados" => $exec ? "Clientes apagados com sucesso" : "Erro ao apagar clientes"]);
+    }
     public function atualizar($param){
         array_shift($_POST);
         $sql = "UPDATE clientes SET ";
