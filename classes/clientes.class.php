@@ -8,18 +8,34 @@ class Clientes {
         $this->db = DB::connect();
     }
     public function listarTodos(){
-        // Buscar todos os clientes
-        
+        try {
             $rs = $this->db->prepare("SELECT * FROM clientes ORDER BY nome");
             $rs->execute();
             $dados = $rs->fetchAll(PDO::FETCH_ASSOC);
 
+            if (empty($dados)) {
+                // Nenhum cliente → 204 (No Content)
+                http_response_code(204);
+                exit; // sem body, já que 204 não retorna conteúdo
+            }
+
+            // Clientes encontrados → 200 (OK)
+            http_response_code(200);
             echo json_encode([
-                "dados" => $dados ?: 'Não existem dados'
+                "dados" => $dados,
+                "quantidade" => count($dados)
             ]);
-            exit;
-        
+
+        } catch (PDOException $e) {
+            // Erro inesperado → 500 (Internal Server Error)
+            http_response_code(500);
+            echo json_encode([
+                "error" => "Erro ao buscar clientes"
+            ]);
+        }
+        exit;
     }
+
     public function listarUnico($param){
         // Buscar cliente por ID
             

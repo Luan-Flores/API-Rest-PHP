@@ -41,4 +41,7 @@ Content-Type: application/x-www-form-urlencoded
 nome=teste&email=oi@ola.com&cidade=goiania&estado=goias&telefone=12345678
 ###
 POST https://api-rest-php-j9ir.onrender.com/clientes/truncar HTTP/1.1
+
+###
+GET 
  
