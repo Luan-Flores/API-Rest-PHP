@@ -23,7 +23,7 @@ class Servicos{
             http_response_code(200);
             echo json_encode([
                 "dados" => $dados,
-                "quantidade" => count($dados);
+                "quantidade" => count($dados)
             ]);
 
         } catch (PDOException $e){

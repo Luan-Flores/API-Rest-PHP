@@ -43,5 +43,6 @@ nome=teste&email=oi@ola.com&cidade=goiania&estado=goias&telefone=12345678
 POST https://api-rest-php-j9ir.onrender.com/clientes/truncar HTTP/1.1
 
 ###
-GET 
+GET http://localhost/api/clientes/listar HTTP/1.1
+
  
