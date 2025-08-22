@@ -30,6 +30,7 @@ $rota->add('GET', '/clientes/listar/[PARAM]', 'Clientes::listarUnico', false);
 $rota->add('PUT', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', false);
 $rota->add('POST', '/clientes/deletar/[PARAM]', 'Clientes::deletar', false);
 $rota->add('POST', '/clientes/adicionar', 'Clientes::adicionar', false);
+$rota->add('GET', '/servicos/listar', 'Servicos::listarTodos', false);
 // $rota->add('POST', '/clientes/truncar','Clientes::truncar',false);
 $rota->ir($_GET['path']);
 
