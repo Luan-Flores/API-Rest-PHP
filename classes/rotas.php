@@ -20,7 +20,9 @@ class Rotas {
         
         // $methodServer = isset($_POST['_method']) ? $_POST['_method'] : $methodServer;
         // null coalescing operator 
-        $methodServer = $_POST['_method'] ?? $methodServer;
+
+        
+        // $methodServer = $_POST['_method'] ?? $methodServer;
         $route = $methodServer.':/'.$route;
        
 
