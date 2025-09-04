@@ -53,7 +53,7 @@ class Clientes {
     {
         // Lê JSON do body (se houver)
         $inputJson = file_get_contents('php://input');
-        $input = json_decode($inputJson, true);
+        $input = json_decode($inputJson, true); //true no json_decode para retornar um array associativo
 
         // Usa JSON decodificado ou $_POST (caso cliente envie form-urlencoded)
         $dados = (is_array($input) && count($input)) ? $input : $_POST;
@@ -90,36 +90,53 @@ class Clientes {
             echo json_encode(['erro' => 'Erro no servidor', 'detalhe' => $e->getMessage()]);
         }
     }
+    public function atualizar($idUser){
+        $inputJson = file_get_contents("php://input");
+        $input = json_decode($inputJson, true);
 
-    public function truncar(){
-        $sql = "TRUNCATE TABLE clientes;";
-        $rs = $this->db->prepare($sql);
-        $exec = $rs->execute();
-        echo json_encode(["dados" => $exec ? "Clientes apagados com sucesso" : "Erro ao apagar clientes"]);
-    }
-    public function atualizar($param){
-        array_shift($_POST);
-        $sql = "UPDATE clientes SET ";
-        $contador = 1;
-        foreach (array_keys($_POST) as $column){
-                $value = $_POST[$column];
-                
-                if (count($_POST) > $contador){
-                    $sql .= "{$column} = '{$value}', ";
-                }else{
-                    $sql .= "{$column} = '{$value}' ";
-                }
-            
-            $contador++;
+        $dados = (is_array($input) && count($input)) ? $input : $_POST;
+
+        if (!is_array($dados) || count($dados) === 0){
+            http_response_code(400);
+            echo json_encode(['erro' => 'Nenhum dado recebido']);
+            exit();
         }
-        $sql .= "WHERE id = {$param};";
-        
-        $rs = $this->db->prepare($sql);
-        $exec = $rs->execute();
+
+        $colunas = array_keys($dados);
+        $placeholders = array_map(fn($c) => ":" . $c, $colunas);
     
-        echo json_encode(["dados" => $exec ? "Dados atualizados com sucesso" : "Erro ao inserir os dados"]);
+                
+        $sql = "UPDATE clientes SET ";
+        foreach ($colunas as $indexCol => $col) {
+            $val = $placeholders[$indexCol];
+            if ($indexCol < (count($colunas) - 1)) {
+                $sql .= "$col = $val, ";
+            } else {
+                $sql .= "$col = $val";
+            }
+        }
+        $sql .= " WHERE id = :idUser";
+        
+        try {
+            $stmt = $this->db->prepare($sql);
+            foreach ($dados as $k => $v){
+                $stmt->bindValue(":" . $k, $v);
+            }
+            $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+            $exec = $stmt->execute();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
         
     }
+    
+        // public function truncar(){
+        //     $sql = "TRUNCATE TABLE clientes;";
+        //     $rs = $this->db->prepare($sql);
+        //     $exec = $rs->execute();
+        //     echo json_encode(["dados" => $exec ? "Clientes apagados com sucesso" : "Erro ao apagar clientes"]);
+        // }
     public function deletar($param){
         $rs = $this->db->prepare("DELETE from clientes WHERE id = {$param};");
         $exec = $rs->execute();

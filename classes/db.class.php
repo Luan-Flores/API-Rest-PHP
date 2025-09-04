@@ -6,7 +6,7 @@ class DB {
         $user   = "banco1_ezys_user";
         $pass   = "Vckemrx37TjQjFfIv4obZFGJ56aRZwKW"; // senha do Render
         $dbname = "banco1_ezys";
-
+       
         try {
             $pdo = new PDO(
                 "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require",
