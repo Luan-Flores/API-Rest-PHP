@@ -28,10 +28,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6I
 _method=PUT&nome=Novo%20Nome%20do%20Cliente&email=new.email@exemplo.com
 
 ###
-POST https://api-rest-php-j9ir.onrender.com/clientes/deletar/7 HTTP/1.1
+DELETE https://api-rest-php-j9ir.onrender.com/clientes/deletar/20 HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6Im5ldG8gZnJlbnRlIiwiZXhwaXJlc19pbiI6MTc1NTY2MTI5NX0.6R3GF0waAUSMkGkJ_Fo8d3eFXNJhU83dUz3XDeGjN0c
 
-_method=DELETE
+
 
 ###
 POST https://api-rest-php-j9ir.onrender.com/clientes/adicionar HTTP/1.1
@@ -43,6 +43,7 @@ nome=teste&email=oi@ola.com&cidade=goiania&estado=goias&telefone=12345678
 POST https://api-rest-php-j9ir.onrender.com/clientes/truncar HTTP/1.1
 
 ###
-GET http://localhost/api/clientes/listar HTTP/1.1
+GET https://api-rest-php-j9ir.onrender.com/servicos/listar HTTP/1.1
 
- 
+### 
+GET http://localhost/api/clientes/listar HTTP/1.1
