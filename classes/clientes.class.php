@@ -90,47 +90,64 @@ class Clientes {
             echo json_encode(['erro' => 'Erro no servidor', 'detalhe' => $e->getMessage()]);
         }
     }
-    public function atualizar($idUser){
-        $inputJson = file_get_contents("php://input");
-        $input = json_decode($inputJson, true);
+public function atualizar($idUser){
+    $inputJson = file_get_contents("php://input");
+    $input = json_decode($inputJson, true);
 
-        $dados = (is_array($input) && count($input)) ? $input : $_POST;
+    $dados = (is_array($input) && count($input)) ? $input : $_POST;
 
-        if (!is_array($dados) || count($dados) === 0){
-            http_response_code(400);
-            echo json_encode(['erro' => 'Nenhum dado recebido']);
-            exit();
-        }
-
-        $colunas = array_keys($dados);
-        $placeholders = array_map(fn($c) => ":" . $c, $colunas);
-    
-                
-        $sql = "UPDATE clientes SET ";
-        foreach ($colunas as $indexCol => $col) {
-            $val = $placeholders[$indexCol];
-            if ($indexCol < (count($colunas) - 1)) {
-                $sql .= "$col = $val, ";
-            } else {
-                $sql .= "$col = $val";
-            }
-        }
-        $sql .= " WHERE id = :idUser";
-        
-        try {
-            $stmt = $this->db->prepare($sql);
-            foreach ($dados as $k => $v){
-                $stmt->bindValue(":" . $k, $v);
-            }
-            $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
-            $exec = $stmt->execute();
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-
-        
+    if (!is_array($dados) || count($dados) === 0){
+        http_response_code(400);
+        echo json_encode(['erro' => 'Nenhum dado recebido']);
+        exit();
     }
-    
+
+    $colunas = array_keys($dados);
+    $placeholders = array_map(fn($c) => ":" . $c, $colunas);
+
+    $sql = "UPDATE clientes SET ";
+    foreach ($colunas as $indexCol => $col) {
+        $val = $placeholders[$indexCol];
+        $sql .= "$col = $val";
+        if ($indexCol < (count($colunas) - 1)) {
+            $sql .= ", ";
+        }
+    }
+    $sql .= " WHERE id = :idUser";
+
+    try {
+        $stmt = $this->db->prepare($sql);
+
+        foreach ($dados as $k => $v){
+            $stmt->bindValue(":" . $k, $v);
+        }
+        $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+
+        $exec = $stmt->execute();
+
+        if ($exec) {
+            echo json_encode([
+                'sucesso' => true,
+                'mensagem' => 'Cliente atualizado com sucesso!',
+                'id' => $idUser,
+                'dados_atualizados' => $dados
+            ]);
+        } else {
+            http_response_code(500);
+            echo json_encode([
+                'erro' => 'Falha ao atualizar cliente.'
+            ]);
+        }
+
+    } catch (\Throwable $th) {
+        http_response_code(500);
+        echo json_encode([
+            'erro' => 'Erro no servidor',
+            'detalhe' => $th->getMessage()
+        ]);
+    }
+}
+
         // public function truncar(){
         //     $sql = "TRUNCATE TABLE clientes;";
         //     $rs = $this->db->prepare($sql);
