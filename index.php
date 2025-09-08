@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin: *'); //Permitir acesso para todos endereço
 header('Content-type: application/json'); //Api retorna dados em JSON
 date_default_timezone_set("America/Sao_Paulo"); //Definindo o horário
 // Permitir métodos necessários
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, PATCH");
 // Permitir headers enviados pelo frontend
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 // Se a requisição for OPTIONS, apenas responde 200 e encerra
@@ -27,7 +27,7 @@ $rota = new Rotas();
 $rota->add('POST', '/usuarios/login', 'Usuarios::login', false);
 $rota->add('GET', '/clientes/listar', 'Clientes::listarTodos', false);
 $rota->add('GET', '/clientes/listar/[PARAM]', 'Clientes::listarUnico', false);
-$rota->add('PUT', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', false);
+$rota->add('PATCH', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', false);
 $rota->add('DELETE', '/clientes/deletar/[PARAM]', 'Clientes::deletar', false);
 $rota->add('POST', '/clientes/adicionar', 'Clientes::adicionar', false);
 $rota->add('GET', '/servicos/listar', 'Servicos::listarTodos', false);
