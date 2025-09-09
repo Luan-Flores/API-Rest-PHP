@@ -26,6 +26,7 @@ new Autoload();
 $rota = new Rotas();
 $rota->add('POST', '/usuarios/login', 'Usuarios::login', false);
 $rota->add('GET', '/clientes/listar', 'Clientes::listarTodos', false);
+$rota->add('GET', '/reservas/listar', 'Reservas::listarTodos', false);
 $rota->add('GET', '/clientes/listar/[PARAM]', 'Clientes::listarUnico', false);
 $rota->add('PATCH', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', false);
 $rota->add('DELETE', '/clientes/deletar/[PARAM]', 'Clientes::deletar', false);
