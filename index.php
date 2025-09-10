@@ -25,13 +25,16 @@ new Autoload();
 # Rotas
 $rota = new Rotas();
 $rota->add('POST', '/usuarios/login', 'Usuarios::login', false);
+# clientes
 $rota->add('GET', '/clientes/listar', 'Clientes::listarTodos', false);
-$rota->add('GET', '/reservas/listar', 'Reservas::listarTodos', false);
 $rota->add('GET', '/clientes/listar/[PARAM]', 'Clientes::listarUnico', false);
-$rota->add('PATCH', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', false);
 $rota->add('DELETE', '/clientes/deletar/[PARAM]', 'Clientes::deletar', false);
+$rota->add('PATCH', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', false);
 $rota->add('POST', '/clientes/adicionar', 'Clientes::adicionar', false);
+# reservas
+$rota->add('GET', '/reservas/listar', 'Reservas::listarTodos', false);
+# serviços
 $rota->add('GET', '/servicos/listar', 'Servicos::listarTodos', false);
-// $rota->add('POST', '/clientes/truncar','Clientes::truncar',false);
+$rota->add('PATCH', '/servicos/atualizar/[PARAM]', 'Servicos::atualizar', false);
 $rota->ir($_GET['path']);
 
