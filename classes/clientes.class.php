@@ -90,74 +90,81 @@ class Clientes {
             echo json_encode(['erro' => 'Erro no servidor', 'detalhe' => $e->getMessage()]);
         }
     }
-public function atualizar($idUser){
-    $inputJson = file_get_contents("php://input");
-    $input = json_decode($inputJson, true);
+    public function atualizar($idUser){
+        $inputJson = file_get_contents("php://input");
+        $input = json_decode($inputJson, true);
 
-    $dados = (is_array($input) && count($input)) ? $input : $_POST;
+        $dados = (is_array($input) && count($input)) ? $input : $_POST;
 
-    if (!is_array($dados) || count($dados) === 0){
-        http_response_code(400);
-        echo json_encode(['erro' => 'Nenhum dado recebido']);
-        exit();
-    }
-
-    $colunas = array_keys($dados);
-    $placeholders = array_map(fn($c) => ":" . $c, $colunas);
-
-    $sql = "UPDATE clientes SET ";
-    foreach ($colunas as $indexCol => $col) {
-        $val = $placeholders[$indexCol];
-        $sql .= "$col = $val";
-        if ($indexCol < (count($colunas) - 1)) {
-            $sql .= ", ";
+        if (!is_array($dados) || count($dados) === 0){
+            http_response_code(400);
+            echo json_encode(['erro' => 'Nenhum dado recebido']);
+            exit();
         }
-    }
-    $sql .= " WHERE id = :idUser";
 
-    try {
-        $stmt = $this->db->prepare($sql);
+        $colunas = array_keys($dados);
+        $placeholders = array_map(fn($c) => ":" . $c, $colunas);
 
-        foreach ($dados as $k => $v){
-            $stmt->bindValue(":" . $k, $v);
+        $sql = "UPDATE clientes SET ";
+        foreach ($colunas as $indexCol => $col) {
+            $val = $placeholders[$indexCol];
+            $sql .= "$col = $val";
+            if ($indexCol < (count($colunas) - 1)) {
+                $sql .= ", ";
+            }
         }
-        $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+        $sql .= " WHERE id = :idUser";
 
-        $exec = $stmt->execute();
+        try {
+            $stmt = $this->db->prepare($sql);
 
-        if ($exec) {
-            echo json_encode([
-                'sucesso' => true,
-                'mensagem' => 'Cliente atualizado com sucesso!',
-                'id' => $idUser,
-                'dados_atualizados' => $dados
-            ]);
-        } else {
+            foreach ($dados as $k => $v){
+                $stmt->bindValue(":" . $k, $v);
+            }
+            $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+
+            $exec = $stmt->execute();
+
+            if ($exec) {
+                echo json_encode([
+                    'sucesso' => true,
+                    'mensagem' => 'Cliente atualizado com sucesso!',
+                    'id' => $idUser,
+                    'dados_atualizados' => $dados
+                ]);
+            } else {
+                http_response_code(500);
+                echo json_encode([
+                    'erro' => 'Falha ao atualizar cliente.'
+                ]);
+            }
+
+        } catch (\Throwable $th) {
             http_response_code(500);
             echo json_encode([
-                'erro' => 'Falha ao atualizar cliente.'
+                'erro' => 'Erro no servidor',
+                'detalhe' => $th->getMessage()
             ]);
         }
-
-    } catch (\Throwable $th) {
-        http_response_code(500);
-        echo json_encode([
-            'erro' => 'Erro no servidor',
-            'detalhe' => $th->getMessage()
-        ]);
     }
-}
-
-        // public function truncar(){
-        //     $sql = "TRUNCATE TABLE clientes;";
-        //     $rs = $this->db->prepare($sql);
-        //     $exec = $rs->execute();
-        //     echo json_encode(["dados" => $exec ? "Clientes apagados com sucesso" : "Erro ao apagar clientes"]);
-        // }
+            
     public function deletar($param){
-        $rs = $this->db->prepare("DELETE from clientes WHERE id = {$param};");
-        $exec = $rs->execute();
-        echo json_encode(["Dados" => $exec ? "Dados excluídos com sucesso" : "Não foi possível excluir os dados"]);
-    }
-    
+        $sql = "DELETE from clientes WHERE id = :idUser";
+        try{
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(":idUser", $param, PDO::PARAM_INT);
+            $exec = $stmt->execute();
+            if ($exec) {
+                http_response_code(204);
+            } else {
+                http_response_code(500);
+                echo json_encode([
+                    'erro' => 'Falha ao excluir cliente.'
+                ]);
+            }  
+        }catch (PDOException $e){
+            http_response_code(500);
+            echo json_encode(["erro" => "Erro no servidor", "detalhe" => $e->getMessage()]);
+        }
+    }    
 }
