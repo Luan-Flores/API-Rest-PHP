@@ -128,4 +128,23 @@ class Servicos{
             ]);
         }
     }
+
+    public function deletar($idServ){
+        $sql = "DELETE FROM servicos WHERE id = :idServ";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':idServ', $idServ, PDO::PARAM_INT);
+            $exec = $stmt->execute();
+            if ($exec) http_response_code(204);
+            else{
+                http_response_code(500);
+                echo json_encode(['erro' => 'Falha ao excluir serviço.']);
+            }
+        } catch (PDOException $e){
+            http_response_code(500);
+            echo json_encode(["erro" => "Erro no servidor", "detalhe" => $e->getMessage()]);
+        }
+
+
+    }
 }
