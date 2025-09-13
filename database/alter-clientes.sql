@@ -1,0 +1,1 @@
+ALTER TABLE clientes ADD dataNasc DATE
